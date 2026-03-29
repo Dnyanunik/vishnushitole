@@ -1,0 +1,13 @@
+@if (isAppStarting) {
+  <app-loader (ready)="onLoadingComplete()"></app-loader>
+}
+
+@if (!isAppStarting) {
+  <div class="home-page-reveal">
+    <app-navbar></app-navbar>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer></app-footer>
+  </div>
+}

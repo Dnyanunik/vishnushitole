@@ -1,0 +1,147 @@
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulseIcon {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(233, 30, 99, 0.4); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(233, 30, 99, 0); }
+  100% { transform: scale(1); }
+}
+
+.contact-section {
+  background: var(--bg-primary); /* Follows your theme bg */
+  padding-bottom: 80px;
+  overflow-x: hidden;
+
+  .header-banner {
+    /* Uses your brand Rose/Gold feel for the overlay */
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url("/public/image/contact.jpg") center/cover no-repeat;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      color: #ffffff;
+      margin: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+
+      span { color: var(--brand-gold, #ffd700); }
+    }
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: -60px auto 0;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+
+  .contact-card {
+    text-align: center;
+    padding: 40px 25px;
+    border: 1px solid var(--border-light, rgba(255, 255, 255, 0.1));
+    border-radius: 24px;
+    background: var(--bg-glass, rgba(20, 20, 20, 0.8));
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    color: var(--text-primary);
+
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out forwards;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    &:nth-child(1) { animation-delay: 0.2s; }
+    &:nth-child(2) { animation-delay: 0.4s; }
+
+    &:hover {
+      transform: translateY(-12px);
+      border-color: var(--brand-rose);
+      box-shadow: 0 15px 45px rgba(233, 30, 99, 0.2);
+
+      .icon-circle {
+        background: var(--brand-rose);
+        color: white;
+        animation: pulseIcon 1.5s infinite;
+      }
+    }
+
+    .icon-circle {
+      width: 80px;
+      height: 80px;
+      background: rgba(233, 30, 99, 0.1);
+      color: var(--brand-rose);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 25px;
+      transition: all 0.4s ease;
+
+      mat-icon { font-size: 35px; width: 35px; height: 35px; }
+    }
+
+    h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 15px;
+      color: var(--brand-gold);
+    }
+
+    p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 25px;
+      font-size: 1.05rem;
+    }
+
+    .action-btn {
+      border-radius: 50px;
+      border: 1px solid var(--brand-rose);
+      color: var(--text-primary);
+      padding: 0 30px;
+      height: 45px;
+      line-height: 43px;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+
+      &:hover {
+        background: var(--brand-rose);
+        color: white;
+      }
+    }
+  }
+
+  .map-card {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-light);
+    border-radius: 24px;
+    padding: 10px;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out 0.6s forwards;
+
+    iframe {
+      border-radius: 18px;
+      filter: grayscale(0.2) invert(0) contrast(1.1); /* Slightly muted to fit theme */
+    }
+  }
+}
