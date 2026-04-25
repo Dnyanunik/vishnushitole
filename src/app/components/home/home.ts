@@ -59,17 +59,6 @@ export class HomeComponent {
     }
   ];
 
-  // --- ROUND TRIP PACKAGES ---
-  popularRoutes = [
-    { dest: 'Pune ⇄ Bhimashankar', km: '300', price4: 3599, price6: 4500 },
-    { dest: 'Pune ⇄ Lonavala', km: '300', price4: 3599, price6: 4500 },
-    { dest: 'Pune ⇄ Mahabaleshwar', km: '300', price4: 3599, price6: 4500 },
-    { dest: 'Pune ⇄ Matheran', km: '300', price4: 3999, price6: 4599 },
-    { dest: 'Pune ⇄ Alibag', km: '300', price4: 5999, price6: 6599 },
-    { dest: 'Pune ⇄ Diveagar', km: '300', price4: 5999, price6: 6599 },
-    { dest: 'Pune ⇄ Tarkarli', km: '300', price4: 10999, price6: 12599 },
-    { dest: 'Pune ⇄ Goa', km: '1000', price4: 14999, price6: 16999 },
-  ];
 
   // --- ACTIONS ---
   makeCall() {

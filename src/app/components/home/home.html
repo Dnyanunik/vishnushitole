@@ -77,36 +77,6 @@
     </div>
   </section>
 
-  <section class="section packages">
-    <div class="section-title">
-      <h2>ROUND TRIP PACKAGES</h2>
-      <div class="line"></div>
-      <p>Pune to Popular Destinations</p>
-    </div>
-
-    <div class="table-container glass">
-      <div class="table-head">
-        <div class="col">DESTINATION</div>
-        <div class="col">KM</div>
-        <div class="col">SWIFT (4 Seater)</div>
-        <div class="col accent-text">ERTIGA (7 Seater)</div>
-        <div class="col center">ACTION</div>
-      </div>
-
-      <div class="table-row" *ngFor="let route of popularRoutes">
-        <div class="col dest">📍 {{ route.dest }}</div>
-        <div class="col km">{{ route.km }} KM</div>
-        <div class="col price">₹{{ route.price4 }}</div>
-        <div class="col price accent-text">₹{{ route.price6 }}</div>
-        <div class="col action split-actions">
-          <button class="btn-small btn-book-outline" (click)="openModal(route.dest + ' Package')">Book</button>
-          <button class="btn-small btn-call-outline" (click)="makeCall()">Call</button>
-        </div>
-      </div>
-    </div>
-    <p class="disclaimer">Driver food & Toll/Parking extra. Rates subject to change.</p>
-  </section>
-
   <div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()">
     <div class="modal-box" (click)="$event.stopPropagation()">
       <button class="close-btn" (click)="closeModal()">&#10005;</button>

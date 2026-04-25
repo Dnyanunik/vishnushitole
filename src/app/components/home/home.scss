@@ -74,23 +74,6 @@
   }
 }
 
-/* --- 3. Packages Table --- */
-.table-container { @extend %glass-panel; border-radius: 20px; overflow: hidden; transition: 0.4s; }
-.table-head, .table-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; padding: 20px 25px; align-items: center; border-bottom: 1px solid var(--border-light); }
-.table-head { background: var(--bg-secondary); font-weight: 800; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; }
-.table-row { color: var(--text-primary); transition: 0.3s;
-  &:last-child { border-bottom: none; } &:hover { background: rgba(255,170,0,0.08); }
-  .dest { font-weight: 700; font-size: 1.1rem; }
-  .price { font-family: monospace; font-size: 1.1rem; font-weight: 600; }
-}
-.disclaimer { text-align: center; font-size: 0.85rem; color: var(--text-secondary); margin-top: 20px; font-style: italic; }
-
-.split-actions { display: flex; gap: 10px;
-  .btn-small { @extend %btn-reset; padding: 8px 14px; border-radius: 6px; font-size: 0.85rem; border: 1px solid transparent; }
-  .btn-book-outline { border-color: var(--accent-primary); color: var(--accent-primary); background: transparent; &:hover { background: var(--accent-primary); color: #000; } }
-  .btn-call-outline { background: var(--bg-secondary); color: var(--text-primary); border-color: var(--border-light); &:hover { background: var(--text-primary); color: var(--bg-primary); } }
-}
-
 /* --- 4. Premium Section --- */
 .premium-grid { display: grid; gap: 40px; max-width: 1200px; margin: 0 auto; @media(min-width: 900px) { grid-template-columns: 1.1fr 1fr; } }
 .premium-card { position: relative; padding: 40px; border-radius: 24px; @extend %glass-panel; z-index: 1; transition: 0.5s;
