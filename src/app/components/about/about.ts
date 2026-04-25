@@ -19,45 +19,45 @@ interface CompanyStat {
   styleUrls: ['./about.scss']
 })
 export class About {
-  // Stats pulled directly from your ECRS screenshot
+  // Stats updated to reflect an independent travel and rental agency
   corporateStats: CompanyStat[] = [
-    { value: '180+', label: 'Cities Across India' },
-    { value: '200+', label: 'Corporate Clients' },
-    { value: '40,000+', label: 'Sq. Ft Parking Area' },
-    { value: '24 / 7', label: 'Operational' },
-    { value: '13+', label: 'Years in Travel Industry' }
+    { value: '50+', label: 'Premium Vehicles' },
+    { value: '5000+', label: 'Happy Customers' },
+    { value: '10+', label: 'Years Experience' },
+    { value: '24 / 7', label: 'Service Available' },
+    { value: '100%', label: 'Safe & Secure' }
   ];
 
- features = [
-  {
-    icon: 'airport_shuttle',
-    glow: 'cyan-glow',
-    title: 'Airport Transfers',
-    desc: 'Reliable airport pickup & drop services with on-time guarantee and professional meet & greet support.'
-  },
-  {
-    icon: 'directions_car',
-    glow: 'rose-glow',
-    title: 'Corporate Car Rental',
-    desc: 'Premium executive vehicles for business travel with trained chauffeurs and seamless booking experience.'
-  },
-  {
-    icon: 'event',
-    glow: 'gold-glow',
-    title: 'Event Transportation',
-    desc: 'Efficient transport solutions for corporate events, conferences, and large-scale workforce movement.'
-  },
-  {
-    icon: 'map',
-    glow: 'green-glow',
-    title: 'Outstation & Local Trips',
-    desc: 'Flexible hourly, daily, and outstation rental services designed for comfort and convenience.'
-  },
-  {
-    icon: 'support_agent',
-    glow: 'orange-glow',
-    title: '24/7 Customer Support',
-    desc: 'Round-the-clock assistance for bookings, tracking, and emergency support anytime, anywhere.'
-  }
-];
+  features = [
+    {
+      icon: 'airport_shuttle',
+      glow: 'cyan-glow',
+      title: 'Airport Transfers',
+      desc: 'Reliable airport pickup & drop services with an on-time guarantee and professional drivers.'
+    },
+    {
+      icon: 'directions_car',
+      glow: 'rose-glow',
+      title: 'Car Rental Services',
+      desc: 'Well-maintained vehicles available for local city rides, business meetings, and personal travel needs.'
+    },
+    {
+      icon: 'map',
+      glow: 'gold-glow',
+      title: 'Outstation Trips',
+      desc: 'Comfortable and safe outstation cabs for family vacations, weekend getaways, and regional tours.'
+    },
+    {
+      icon: 'groups',
+      glow: 'green-glow',
+      title: 'Group Travel',
+      desc: 'Spacious SUVs and larger vehicles for group tours, family functions, and special events.'
+    },
+    {
+      icon: 'support_agent',
+      glow: 'orange-glow',
+      title: '24/7 Customer Support',
+      desc: 'Round-the-clock assistance for bookings, trip tracking, and support anytime, anywhere.'
+    }
+  ];
 }

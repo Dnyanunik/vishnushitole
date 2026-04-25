@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <-- ADDED THIS FOR FORMS
+import { FormsModule } from '@angular/forms';
 import { ThemeService } from '../../theme';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatIcon], // <-- ADDED FormsModule AND MatIcon HERE
+  imports: [CommonModule, FormsModule, MatIcon],
   templateUrl: './home.html',
   styleUrls: ['./home.scss']
 })
@@ -15,15 +15,15 @@ export class HomeComponent {
   themeService = inject(ThemeService);
 
   // --- CONTACT DETAILS ---
-  phoneNumber1 = '+917499500168';
-  phoneNumber2 = '+917499500168';
-  email = 'Jijamatacontractor@gmail.com';
+  phoneNumber1 = '+919552263633';
+  phoneNumber2 = '+919552263633';
+  email = 'vishnushitole978@gmail.com';
 
   // --- MODAL STATE & FORM DATA ---
   isModalOpen: boolean = false;
   selectedVehicle: string = 'Select Vehicle';
 
-  // <-- ADDED THESE VARIABLES TO CAPTURE USER INPUT -->
+  // --- USER INPUT VARIABLES ---
   guestName: string = '';
   guestPhone: string = '';
   fromCity: string = '';
@@ -38,7 +38,7 @@ export class HomeComponent {
       type: 'Royal SUV (6+1 Seater)',
       image: 'image/eritiga.jpg',
       rate: 14,
-      desc: 'For Outstation / Pune Local / Corporate / Airport Pick & Drop',
+      desc: 'For Outstation / Local / Corporate / Airport Pick & Drop',
       minPkg: '300 km'
     },
     {
@@ -46,7 +46,7 @@ export class HomeComponent {
       type: 'Premium Sedan (4 Seater)',
       image: 'image/swiftold.jpg',
       rate: 12,
-      desc: 'For Outstation / Pune Local / Corporate / Airport Pick & Drop',
+      desc: 'For Outstation / Local / Corporate / Airport Pick & Drop',
       minPkg: '300 km'
     },
     {
@@ -54,7 +54,7 @@ export class HomeComponent {
       type: 'Comfort Class (4 Seater)',
       image: 'image/swiftnew.jpg',
       rate: 12,
-      desc: 'For Outstation / Pune Local / Corporate / Airport Pick & Drop',
+      desc: 'For Outstation / Local / Corporate / Airport Pick & Drop',
       minPkg: '300 km'
     }
   ];
@@ -79,10 +79,9 @@ export class HomeComponent {
   sendEmail() {
     window.location.href = `mailto:${this.email}`;
   }
-openModal(itemName: string = 'Select Vehicle') {
+
+  openModal(itemName: string = 'Select Vehicle') {
     // 1. FIRST: Handle the Body Overflow
-    // This stops the background from moving and ensures the modal
-    // is not trapped by "overflow-x: hidden" glitches
     if (typeof document !== 'undefined') {
       document.body.style.overflow = 'hidden';
       document.body.style.height = '100vh';
@@ -109,11 +108,14 @@ openModal(itemName: string = 'Select Vehicle') {
 
     // 4. ALIGNMENT
     window.scrollTo({ top: 0, behavior: 'instant' });
-}
+  }
 
   closeModal() {
     this.isModalOpen = false;
-    document.body.style.overflow = 'auto'; // Restore scrolling
+    if (typeof document !== 'undefined') {
+      document.body.style.overflow = 'auto'; // Restore scrolling
+      document.body.style.height = 'auto';
+    }
 
     // Clear the form when closed so it's empty next time
     this.guestName = '';
@@ -125,16 +127,16 @@ openModal(itemName: string = 'Select Vehicle') {
   }
 
   // Add this so the Navbar button works too!
-openBookingDialog() {
-  this.openModal('General Enquiry');
-}
+  openBookingDialog() {
+    this.openModal('General Enquiry');
+  }
 
   submitBooking() {
     // Format number for WhatsApp
     const formattedNumber = this.phoneNumber1.replace('+', '');
 
-    // <-- UPDATED THIS TO INCLUDE ALL FORM DETAILS -->
-    const text = `*New Booking Enquiry* 🚗
+    // Format WhatsApp message text
+    const text = `*New Booking Enquiry (Vishnu Tours & Travel)* 🚗
 *Vehicle/Package:* ${this.selectedVehicle}
 *Name:* ${this.guestName}
 *Phone:* ${this.guestPhone}

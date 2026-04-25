@@ -1,76 +1,98 @@
-/* --- 1. Import Angular Material --- */
+/* --- 1. Import Angular Material & Google Fonts --- */
 @use '@angular/material' as mat;
 @import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&display=swap');
 
-/* --- 2. GLOBAL THEME VARIABLES --- */
+/* --- 2. GLOBAL THEME VARIABLES (The Vintage Palette) --- */
 :root {
-  /* BRAND COLORS (Remains exactly as you provided) */
-  --brand-rose: #e91e63;
-  --brand-gold: #ffd700;
-  --brand-cyan: #00f3ff;
+  /* LUXURY BRAND COLORS */
+  --brand-maroon: #5e1914;
+  --brand-gold: #b5d437;
+  --brand-cream: #f8f1e5;
+  --brand-charcoal: #12141a;
 
-  /* LIGHT THEME (Day Trip) */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --bg-glass: rgba(255, 255, 255, 0.8);
-  --text-primary: #1a1a1a;
-  --text-secondary: #5f6368;
-  --nav-bg: rgba(255, 255, 255, 0.9);
-  --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  /* LIGHT THEME (Morning Concierge) */
+  --bg-primary: var(--brand-cream);
+  --bg-secondary: #ffffff;
+  --bg-glass: rgba(248, 241, 229, 0.85);
+  --text-primary: #2c3e50;
+  --text-secondary: #555555;
+  --nav-bg: rgba(248, 241, 229, 0.95);
+  --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 
-  /* Adding a variable for border colors to use in the dialog */
-  --border-color: rgba(0, 0, 0, 0.1);
+  --border-color: rgba(212, 175, 55, 0.3); /* Subtle antique gold border */
+  --accent-primary: var(--brand-maroon); /* Buttons/Headers use Maroon in light mode */
 }
 
-/* --- 3. DARK THEME OVERRIDES (Night Drive) --- */
+/* --- 3. DARK THEME OVERRIDES (Midnight Drive) --- */
 body.theme-dark {
-  --bg-primary: #09090b;
-  --bg-secondary: #1e1b4b;
-  --bg-glass: rgba(15, 23, 42, 0.7);
-  --text-primary: #ffffff;
-  --text-secondary: #94a3b8;
-  --nav-bg: rgba(9, 9, 11, 0.85);
-  --card-shadow: 0 4px 30px rgba(0, 243, 255, 0.15);
+  --bg-primary: var(--brand-charcoal);
+  --bg-secondary: #1a1d24;
+  --bg-glass: rgba(18, 20, 26, 0.85);
+  --text-primary: var(--brand-cream);
+  --text-secondary: #a0a0a0;
+  --nav-bg: rgba(18, 20, 26, 0.95);
+  --card-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
 
-  --border-color: rgba(255, 255, 255, 0.1);
+  --border-color: rgba(212, 175, 55, 0.15);
+  --accent-primary: var(--brand-gold); /* Buttons/Headers use Gold in dark mode */
 }
 
 /* --- 4. GLOBAL RESET & TYPOGRAPHY --- */
-html, body {
-  height: 100%;
-  margin: 0;
-  font-family: 'Rajdhani', 'Roboto', sans-serif;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition: background-color 0.4s ease, color 0.3s ease;
+*, *:before, *:after {
+  box-sizing: border-box; /* Kills horizontal overflow glitches globally */
 }
 
-/* --- 5. GLOBAL DIALOG THEMING --- */
-/* This ensures the popup box itself respects your dark/light modes */
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevents side-scrolling on mobile */
+  font-family: 'Lato', sans-serif; /* Clean, modern body text */
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Force all headings to use the luxury Serif font */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+}
+
+/* --- 5. GLOBAL DIALOG THEMING (The Reservation Card) --- */
 .cdk-overlay-pane {
   display: flex !important;
   justify-content: center !important;
 
   .mat-mdc-dialog-container {
-    border-radius: 20px !important; /* Slightly more rounded for luxury feel */
+    /* Less rounded corners for a classic paper invitation feel */
+    border-radius: 8px !important;
     padding: 0 !important;
     overflow: hidden !important;
-    background-color: var(--bg-primary) !important; /* Connected to your theme */
-    border: 1px solid var(--border-color);
+    background-color: var(--bg-primary) !important;
+    border: 2px solid var(--brand-gold) !important; /* Prominent gold trim */
     box-shadow: var(--card-shadow) !important;
   }
 }
 
 .premium-dialog {
   min-width: 350px;
-  padding: 24px;
-  background: var(--bg-primary); /* Changed from 'white' to follow your theme */
+  max-width: 500px;
+  padding: 30px;
+  background: var(--bg-primary);
   color: var(--text-primary);
 
   h2 {
     margin-top: 0;
-    font-family: 'Rajdhani', sans-serif;
-    color: var(--brand-rose); /* Ensuring the header uses your brand color */
+    color: var(--accent-primary);
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 25px;
   }
 
   .full-width {
@@ -79,24 +101,26 @@ html, body {
   }
 }
 
-/* --- 6. UTILITY CLASSES --- */
-.text-gradient-gold {
-  background: linear-gradient(135deg, var(--brand-gold), #ffa000);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+/* --- 6. LUXURY UTILITY CLASSES --- */
+.text-gold {
+  color: var(--brand-gold);
 }
 
-.text-gradient-rose {
-  background: linear-gradient(135deg, var(--brand-rose), #ff4081);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.text-maroon {
+  color: var(--brand-maroon);
 }
 
 .glass-card {
   background: var(--bg-glass);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-color);
-  border-radius: 16px;
+  border-radius: 12px;
   padding: 24px;
   box-shadow: var(--card-shadow);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+
+  &:hover {
+    border-color: var(--brand-gold);
+  }
 }

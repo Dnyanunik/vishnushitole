@@ -3,12 +3,12 @@
   <header class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-content">
-      <h1 class="animate-up accent-text">JIJAMATA</h1>
-      <p class="animate-up delay-1 subtitle">PREMIUM CAR RENTAL & FACILITY SERVICES</p>
+      <h1 class="animate-up accent-text">VISHNU</h1>
+      <p class="animate-up delay-1 subtitle">PREMIUM TOURS & TRAVEL SERVICES</p>
 
       <div class="hero-badges animate-up delay-2">
-        <div class="badge"><span>🏛️</span> Govt. Certified</div>
-        <div class="badge"><span>🌟</span> 15+ Years Experience</div>
+        <div class="badge"><span>🏅</span> Trusted & Reliable</div>
+        <div class="badge"><span>🌟</span> 10+ Years Experience</div>
         <div class="badge"><span>🚘</span> 24/7 Outstation & Local</div>
       </div>
 
@@ -18,43 +18,44 @@
       </div>
     </div>
   </header>
-<section class="section welcome-company">
-  <div class="section-title">
-    <h2>WELCOME TO JIJAMATA</h2>
-    <div class="line"></div>
-    <p>Your Trusted Travel & Integrated Facility Partner</p>
-  </div>
 
-  <div class="premium-grid">
-    <div class="premium-card glass intro-card fade-up" style="animation-delay: 0.1s;">
-      <h3 class="gradient-text">Elevating Your Journey</h3>
-      <p>A Government certified company, <strong>JIJAMATA Manpower & Facility Services Pvt.Ltd</strong> is a renowned organization specializing in premium car rentals and day-to-day facility management across Maharashtra.</p>
-      <p>Whether you need a reliable Swift for city navigation, a spacious Innova for outstation family trips, or a Tempo Traveller for group tours, we provide unparalleled service quality. We constantly strive to offer safe, clean, and highly efficient transport solutions.</p>
+  <section class="section welcome-company">
+    <div class="section-title">
+      <h2>WELCOME TO VISHNU TOURS & TRAVEL</h2>
+      <div class="line"></div>
+      <p>Your Trusted Travel Partner</p>
     </div>
 
-    <div class="premium-card glass vm-card fade-up" style="animation-delay: 0.3s;">
-
-      <div class="vm-block">
-        <div class="icon-wrapper">
-          <mat-icon>visibility</mat-icon> </div>
-        <div class="text-content">
-          <h4>Our Vision</h4>
-          <p>To be the most trusted and innovative transport and facility partner in Maharashtra, delivering unparalleled quality services that make every journey safe, comfortable, and memorable.</p>
-        </div>
+    <div class="premium-grid">
+      <div class="premium-card glass intro-card fade-up">
+        <h3 class="gradient-text">Elevating Your Journey</h3>
+        <p><strong>Vishnu Tours & Travel</strong> is a premier transport organization specializing in top-tier car rentals and comprehensive tour services across Maharashtra.</p>
+        <p>Whether you need a reliable Swift for city navigation, a spacious Innova for outstation family trips, or a Tempo Traveller for group tours, we provide unparalleled service quality. We constantly strive to offer safe, clean, and highly efficient transport solutions.</p>
       </div>
 
-      <div class="vm-block mt-4">
-        <div class="icon-wrapper">
-          <mat-icon>track_changes</mat-icon> </div>
-        <div class="text-content">
-          <h4>Our Mission</h4>
-          <p>To customize our transport solutions to extract maximum value for our clients. Through well-maintained fleets and professional drivers, our objective is to ensure a seamless travel experience every single time.</p>
+      <div class="premium-card glass vm-card fade-up delay-1">
+        <div class="vm-block">
+          <div class="icon-wrapper">
+            <mat-icon>visibility</mat-icon>
+          </div>
+          <div class="text-content">
+            <h4>Our Vision</h4>
+            <p>To be the most trusted and innovative transport partner in Maharashtra, delivering quality services that make every journey safe, comfortable, and memorable.</p>
+          </div>
+        </div>
+
+        <div class="vm-block mt-4">
+          <div class="icon-wrapper">
+            <mat-icon>track_changes</mat-icon>
+          </div>
+          <div class="text-content">
+            <h4>Our Mission</h4>
+            <p>To customize our transport solutions to extract maximum value for our clients. Through well-maintained fleets and professional drivers, our objective is to ensure a seamless travel experience.</p>
+          </div>
         </div>
       </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
   <section class="section fleet">
     <div class="section-title">
@@ -63,7 +64,6 @@
 
     <div class="fleet-grid">
       <div class="car-card" *ngFor="let car of cars">
-
         <div class="card-content">
           <h3 class="car-title">{{ car.name | uppercase }}</h3>
           <p class="car-desc">{{ car.desc }}</p>
@@ -72,9 +72,7 @@
             <img [src]="car.image" [alt]="car.name">
           </div>
         </div>
-
         <button class="btn-book" (click)="openModal(car.name)">BOOK NOW</button>
-
       </div>
     </div>
   </section>
@@ -108,7 +106,6 @@
     </div>
     <p class="disclaimer">Driver food & Toll/Parking extra. Rates subject to change.</p>
   </section>
-<!-- MODAL POPUP -->
 
   <div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()">
     <div class="modal-box" (click)="$event.stopPropagation()">
@@ -174,3 +171,4 @@
       </form>
     </div>
   </div>
+</div>

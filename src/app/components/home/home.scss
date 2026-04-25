@@ -122,9 +122,8 @@
     p { color: var(--text-secondary); font-size: 1.1rem; transition: color 0.4s ease; }
   }
 }
-
 /* ========================================= */
-/* === 2. FLEET GRID === */
+/* === 2. FLEET GRID (Interactive Flex) === */
 /* ========================================= */
 .fleet {
   background-color: var(--bg-secondary);
@@ -146,15 +145,19 @@
   }
 }
 
+/* Switched to Flexbox for dynamic expanding cards */
 .fleet-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 30px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
 .car-card {
+  flex: 1 1 320px; /* Allows cards to wrap and grow flexibly */
+  max-width: 400px; /* Keeps them from getting disproportionately huge */
   background-color: var(--bg-primary);
   border-radius: 12px;
   overflow: hidden;
@@ -162,12 +165,19 @@
   flex-direction: column;
   border: 1px solid var(--border-light);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, border-color 0.3s ease, background-color 0.4s ease;
+
+  /* Upgraded transition for that buttery smooth interactive feel */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              flex-grow 0.4s ease,
+              border-color 0.3s ease,
+              box-shadow 0.4s ease;
 
   &:hover {
-    transform: translateY(-8px);
+    transform: translateY(-12px) scale(1.02); /* Slight pop-out effect */
+    flex-grow: 1.15; /* The card expands, commanding focus */
     border-color: var(--accent-primary);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+    z-index: 10;
   }
 }
 
@@ -178,6 +188,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
+  z-index: 2;
 }
 
 .car-title {
@@ -204,17 +215,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 
   img {
     max-width: 90%;
     max-height: 100%;
     object-fit: contain;
     filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.2));
-    transition: transform 0.4s ease;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s ease;
   }
 }
 
-.car-card:hover .img-box img { transform: scale(1.05); }
+/* The car image pops up and tilts slightly on hover */
+.car-card:hover .img-box img {
+  transform: scale(1.12) rotate(-2deg);
+  filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.3));
+}
 
 .btn-book {
   width: 100%;
@@ -227,10 +243,17 @@
   text-transform: uppercase;
   letter-spacing: 2px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.2s ease, letter-spacing 0.3s ease;
   margin-top: auto;
 
-  &:hover { background-color: var(--accent-secondary); }
+  &:hover {
+    background-color: var(--accent-secondary);
+    letter-spacing: 4px; /* Text expands on hover for extra flair */
+  }
+
+  &:active {
+    transform: scale(0.98); /* Satisfying click depression */
+  }
 }
 
 /* ========================================= */
@@ -379,38 +402,60 @@
     }
   }
 }
-
-/* --- VISION & MISSION BLOCKS --- */
+/* ========================================= */
+/* === VISION & MISSION BLOCKS (Compact) === */
+/* ========================================= */
 .vm-block {
   display: flex;
   flex-direction: column;
-  margin-bottom: 30px;
-  padding: 25px;
-  background: var(--bg-secondary, rgba(0, 0, 0, 0.2));
-  border-radius: 16px;
-  border-left: 4px solid var(--brand-rose, #e91e63);
-  transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-bottom: 20px; /* Tighter margin */
+  padding: 18px 20px; /* More compact padding */
+  background: var(--bg-primary, #f8f1e5); /* Aged cream background */
+  border-radius: 12px;
+  border-left: 4px solid var(--accent-gold, #d4af37); /* Premium Antique Gold */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  cursor: pointer;
 
   @media(min-width: 600px) {
     flex-direction: row;
     align-items: flex-start;
-    gap: 20px;
+    gap: 15px; /* Tighter gap */
   }
 
   &:last-child { margin-bottom: 0; }
 
+  /* 🌟 THE INTERACTIVE EXPAND EFFECT 🌟 */
+  /* Expands on hover. (You can also toggle an '.expanded' class via Angular on click) */
+  &:hover, &.expanded {
+    transform: translateY(-4px);
+    background: var(--bg-hover, #ffffff);
+    box-shadow: 0 10px 25px rgba(94, 25, 20, 0.12); /* Subtle Maroon shadow */
+
+    .text-content p {
+      -webkit-line-clamp: unset; /* Removes the restriction, showing all text! */
+    }
+
+    .read-more-hint {
+      opacity: 0; /* Hides the "Read More" prompt smoothly */
+      max-height: 0;
+      margin-top: 0;
+    }
+  }
+
   .icon-wrapper {
-    width: 60px;
-    height: 60px;
+    width: 45px; /* Scaled down */
+    height: 45px; /* Scaled down */
     border-radius: 50%;
-    background: rgba(233, 30, 99, 0.1);
-    color: var(--brand-rose, #e91e63);
+    background: rgba(212, 175, 55, 0.15); /* Soft gold background */
+    color: var(--accent-gold, #d4af37);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.8rem;
-    margin-bottom: 15px;
-    box-shadow: 0 4px 15px rgba(233, 30, 99, 0.2);
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
+    transition: transform 0.4s ease;
 
     @media(min-width: 600px) {
       margin-bottom: 0;
@@ -418,33 +463,47 @@
     }
   }
 
+  &:hover .icon-wrapper {
+    transform: scale(1.1); /* Icon pops slightly on hover */
+  }
+
   .text-content {
+    flex: 1;
+
     h4 {
-      color: var(--text-primary, #ffffff);
-      font-size: 1.4rem;
-      margin: 0 0 8px 0;
+      color: var(--text-dark, #2c3e50);
+      font-size: 1.15rem; /* Smaller, more refined header */
+      margin: 0 0 6px 0;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       text-transform: uppercase;
     }
+
     p {
+      color: var(--text-muted, #555555);
       margin-bottom: 0;
-      font-size: 1rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+
+      /* ✂️ THE "SMALL PORTION" TRICK ✂️ */
+      display: -webkit-box;
+      -webkit-line-clamp: 2; /* Locks the text to 2 lines */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      transition: color 0.3s ease;
     }
   }
-}
 
-/* --- ENTRANCE ANIMATIONS --- */
-.fade-up {
-  opacity: 0;
-  transform: translateY(40px);
-  animation: slideUpFade 0.8s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-}
-
-@keyframes slideUpFade {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .read-more-hint {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--accent-gold, #d4af37);
+    margin-top: 8px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    overflow: hidden;
   }
 }
 
