@@ -1,50 +1,212 @@
+/* ==========================================================================
+   LIQUID SERVICES & PREMIUM MISSION (HIGH BLUE & BLACK - ISOLATED CANVAS)
+   ========================================================================== */
+
+:host {
+  /* THE ULTIMATE FIX: This locks the background canvas of the entire /services
+     page view to black. Even if content ends or shifts, the white app background
+     is completely blocked from leaking under your footer! */
+  display: block;
+  min-height: 100vh;
+  background-color: #000000 !important;
+  overflow-x: hidden;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes liquidRise {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    border-radius: 100px;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    border-radius: 45px;
+  }
+}
+
+@keyframes waterMorph {
+  0% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+  50% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+}
+
+@keyframes floatBubble {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+/* --- MAIN CONTAINER (Highly Blue-Black Liquid Space) --- */
 .services-container {
-  padding: 80px 20px;
-  background: var(--bg-primary);
+  padding: 100px 20px 140px 20px; /* Generous bottom padding for smooth handover */
+
+  /* Highly vibrant High-Blue mixed into structured luxury blacks */
+  background: linear-gradient(
+    135deg,
+    #000000 0%,
+    #001133 25%,
+    #002b80 50%,
+    #000a21 75%,
+    #000000 100%
+  );
+
   text-align: center;
+  color: #ffffff;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Lato', sans-serif;
+
+  /* Ambient inner lighting glow */
+  box-shadow: inset 0 0 100px rgba(0, 102, 255, 0.2);
 }
 
-.hud-header {
+/* Primary High Blue Radiant Glare (Left Center) */
+.services-container::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  left: 15%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(0, 102, 255, 0.18) 0%, transparent 70%);
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Secondary Shadow Glare for Extreme Depth Contrast */
+.services-container::after {
+  content: '';
+  position: absolute;
+  bottom: -10%;
+  right: 5%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.9) 0%, transparent 80%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* --- LIQUID HEADER --- */
+.liquid-header {
   margin-bottom: 60px;
-  .system-status {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 0.7rem;
-    color: var(--brand-gold);
+  position: relative;
+  z-index: 2;
+  animation: liquidRise 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+
+  .water-subtitle {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #0066ff;
     letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
   }
-  h2 { font-size: 2.5rem; font-weight: 800; margin: 10px 0; }
-  .line-divider {
-    width: 80px; height: 3px; background: var(--brand-rose); margin: 0 auto;
+
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 900;
+    margin: 0;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
   }
 }
 
+/* --- PREMIUM MISSION (The Morphing Liquid Circle) --- */
+.premium-mission-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 80px;
+  position: relative;
+  z-index: 2;
+  animation: liquidRise 1.2s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.liquid-circle-frame {
+  width: 320px;
+  height: 320px;
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 25px rgba(0, 102, 255, 0.15);
+  animation: waterMorph 8s ease-in-out infinite, floatBubble 6s ease-in-out infinite;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  text-align: center;
+
+  .mission-icon {
+    font-size: 3rem;
+    color: #0066ff;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 4px 15px rgba(0, 102, 255, 0.5));
+  }
+
+  h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    margin: 0 0 10px 0;
+  }
+
+  p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
+/* --- SERVICES GRID (Black/Blue Water Pools) --- */
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 30px;
+  gap: 35px;
   max-width: 1200px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .service-item {
   position: relative;
-  height: 450px;
-  border-radius: 30px;
+  height: 480px;
+  border-radius: 45px;
   overflow: hidden;
-  border: 1px solid var(--border-color);
-  background: var(--bg-secondary);
-  transition: transform 0.4s ease;
+
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 5px 15px rgba(0, 0, 0, 0.8);
+
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  opacity: 0;
+  animation: liquidRise 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+
+  &:nth-child(1) { animation-delay: 0.2s; }
+  &:nth-child(2) { animation-delay: 0.4s; }
+  &:nth-child(3) { animation-delay: 0.6s; }
 
   .bg-image {
     position: absolute;
     inset: 0;
     background-size: cover;
     background-position: center;
-    filter: brightness(0.5) grayscale(20%);
-    transition: 0.6s ease;
+    filter: brightness(0.5) saturate(80%);
+    transition: all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
   }
 
-  /* Placeholder Image Classes - Replace with your assets */
   .driver-img { background-image: url('https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?q=80&w=1000'); }
   .comfort-img { background-image: url('/image/ertiga22.jpg'); }
   .journey-img { background-image: url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1000'); }
@@ -53,54 +215,67 @@
     position: absolute;
     bottom: 0;
     width: 100%;
-    padding: 40px 25px;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+    padding: 50px 30px 40px 30px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.6) 60%, transparent 100%);
     color: white;
     text-align: left;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
+    transition: all 0.5s ease;
 
     .service-icon {
-      color: var(--brand-rose);
+      color: #0066ff;
       font-size: 35px;
-      width: 35px;
-      height: 35px;
+      filter: drop-shadow(0 2px 8px rgba(0, 102, 255, 0.5));
+      margin-bottom: 5px;
     }
 
     h3 {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 1.6rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
+      margin: 0;
     }
 
     p {
       font-size: 0.95rem;
-      opacity: 0.8;
-      line-height: 1.5;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.6;
+      margin: 0;
     }
 
     .quality-tags {
       display: flex;
       gap: 10px;
-      margin-top: 10px;
+      margin-top: 15px;
       span {
-        font-size: 0.7rem;
-        padding: 4px 12px;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-size: 0.75rem;
+        padding: 6px 16px;
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
         border-radius: 50px;
         text-transform: uppercase;
-        font-weight: 700;
+        font-weight: 800;
+        letter-spacing: 1px;
       }
     }
   }
 
   &:hover {
-    transform: translateY(-10px);
-    border-color: var(--brand-rose);
-    .bg-image { transform: scale(1.1); filter: brightness(0.7) grayscale(0%); }
-    .glass-overlay { background: linear-gradient(to top, rgba(233, 30, 99, 0.4) 0%, transparent 100%); }
+    transform: translateY(-12px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.8), inset 0 2px 15px rgba(0, 102, 255, 0.4);
+    border-top: 1px solid #0066ff;
+
+    .bg-image {
+      transform: scale(1.08);
+      filter: brightness(0.7) saturate(110%);
+    }
+
+    .glass-overlay {
+      background: linear-gradient(to top, rgba(0, 15, 40, 0.95) 0%, rgba(0, 10, 25, 0.6) 60%, transparent 100%);
+    }
   }
 }

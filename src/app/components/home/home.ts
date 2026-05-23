@@ -1,8 +1,7 @@
-import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ThemeService } from '../../theme';
 import { MatIcon } from '@angular/material/icon';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -10,20 +9,18 @@ import { MatIcon } from '@angular/material/icon';
   imports: [CommonModule, FormsModule, MatIcon],
   templateUrl: './home.html',
   styleUrls: ['./home.scss']
+  // ❌ ViewEncapsulation.None has been deleted!
 })
-export class HomeComponent {
-  themeService = inject(ThemeService);
-
-  // --- CONTACT DETAILS ---
+export class HomeComponent implements OnInit {
   phoneNumber1 = '+919552263633';
-  phoneNumber2 = '+919552263633';
   email = 'vishnushitole978@gmail.com';
 
-  // --- MODAL STATE & FORM DATA ---
-  isModalOpen: boolean = false;
-  selectedVehicle: string = 'Select Vehicle';
+  // --- MODAL TRACKING ENGINE ---
+  isMainModalOpen: boolean = false; 
+  activeCarIndex: number | null = null; 
+  selectedVehicle: string = '';
 
-  // --- USER INPUT VARIABLES ---
+  // --- FORM FIELDS ---
   guestName: string = '';
   guestPhone: string = '';
   fromCity: string = '';
@@ -31,82 +28,48 @@ export class HomeComponent {
   pickupDate: string = '';
   pickupTime: string = '';
 
-  // --- FLEET DATA ---
   cars = [
-    {
-      name: 'Maruti Suzuki Ertiga',
-      type: 'Royal SUV (6+1 Seater)',
-      image: 'image/eritiga.jpg',
-      rate: 14,
-      desc: 'For Outstation / Local / Corporate / Airport Pick & Drop',
-      minPkg: '300 km'
-    },
-    {
-      name: 'Swift Dzire',
-      type: 'Premium Sedan (4 Seater)',
-      image: 'image/swiftold.jpg',
-      rate: 12,
-      desc: 'For Outstation / Local / Corporate / Airport Pick & Drop',
-      minPkg: '300 km'
-    },
-    {
-      name: 'Swift Dzire New Look',
-      type: 'Comfort Class (4 Seater)',
-      image: 'image/swiftnew.jpg',
-      rate: 12,
-      desc: 'For Outstation / Local / Corporate / Airport Pick & Drop',
-      minPkg: '300 km'
-    }
+    { name: 'Maruti Suzuki Ertiga', desc: 'For Outstation / Local / Corporate / Airport Pick & Drop', image: 'image/eritiga.jpg' },
+    { name: 'Swift Dzire', desc: 'For Outstation / Local / Corporate / Airport Pick & Drop', image: 'image/swiftold.jpg' },
+    { name: 'Swift Dzire New Look', desc: 'For Outstation / Local / Corporate / Airport Pick & Drop', image: 'image/swiftnew.jpg' }
   ];
 
+  ngOnInit(): void {}
 
-  // --- ACTIONS ---
   makeCall() {
     window.location.href = `tel:${this.phoneNumber1}`;
   }
 
-  sendEmail() {
-    window.location.href = `mailto:${this.email}`;
-  }
+  openMainModal() {
+    this.closeModals();
+    this.selectedVehicle = '';
+    this.isMainModalOpen = true;
 
-  openModal(itemName: string = 'Select Vehicle') {
-    // 1. FIRST: Handle the Body Overflow
-    if (typeof document !== 'undefined') {
-      document.body.style.overflow = 'hidden';
-      document.body.style.height = '100vh';
-    }
-
-    // 2. DATA LOGIC
-    this.selectedVehicle = itemName;
-
-    if (itemName.includes('⇄')) {
-      const routeString = itemName.replace(' Package', '');
-      const cities = routeString.split(' ⇄ ');
-
-      if (cities.length === 2) {
-        this.fromCity = cities[0].trim();
-        this.toCity = cities[1].trim();
+    setTimeout(() => {
+      const modalElement = document.querySelector('.global-modal-blur');
+      if (modalElement) {
+        modalElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
-    } else {
-      this.fromCity = '';
-      this.toCity = '';
-    }
-
-    // 3. UI STATE
-    this.isModalOpen = true;
-
-    // 4. ALIGNMENT
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    }, 50);
   }
 
-  closeModal() {
-    this.isModalOpen = false;
-    if (typeof document !== 'undefined') {
-      document.body.style.overflow = 'auto'; // Restore scrolling
-      document.body.style.height = 'auto';
-    }
+  openCarModal(carName: string, index: number) {
+    this.closeModals();
+    this.selectedVehicle = carName;
+    this.activeCarIndex = index; 
 
-    // Clear the form when closed so it's empty next time
+    setTimeout(() => {
+      const modalElement = document.querySelector('.global-modal-blur');
+      if (modalElement) {
+        modalElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }, 50);
+  }
+
+  closeModals() {
+    this.isMainModalOpen = false;
+    this.activeCarIndex = null;
+    
     this.guestName = '';
     this.guestPhone = '';
     this.fromCity = '';
@@ -115,29 +78,11 @@ export class HomeComponent {
     this.pickupTime = '';
   }
 
-  // Add this so the Navbar button works too!
-  openBookingDialog() {
-    this.openModal('General Enquiry');
-  }
-
   submitBooking() {
-    // Format number for WhatsApp
     const formattedNumber = this.phoneNumber1.replace('+', '');
+    const text = `*New Travel Booking (Vishnu Tours)* 🚗\n\n*Vehicle:* ${this.selectedVehicle || 'General Fleet'}\n*Passenger:* ${this.guestName}\n*Phone:* ${this.guestPhone}\n*Journey Route:* ${this.fromCity} ➔ ${this.toCity}\n*Schedule:* ${this.pickupDate} at ${this.pickupTime}`;
 
-    // Format WhatsApp message text
-    const text = `*New Booking Enquiry (Vishnu Tours & Travel)* 🚗
-*Vehicle/Package:* ${this.selectedVehicle}
-*Name:* ${this.guestName}
-*Phone:* ${this.guestPhone}
-*From City:* ${this.fromCity}
-*To City:* ${this.toCity}
-*Pickup Date:* ${this.pickupDate}
-*Pickup Time:* ${this.pickupTime}`;
-
-    // Open WhatsApp
     window.open(`https://api.whatsapp.com/send?phone=${formattedNumber}&text=${encodeURIComponent(text)}`, '_blank');
-
-    // Close Modal
-    this.closeModal();
+    this.closeModals();
   }
 }

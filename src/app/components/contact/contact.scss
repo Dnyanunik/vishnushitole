@@ -1,46 +1,105 @@
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+/* =========================================
+   DRIBBBLE LIQUID UI (Contact Component)
+   ========================================= */
+
+:host {
+  /* LIGHT MODE */
+  --fluid-grad-1: #c418a5;
+  --fluid-grad-2: #ffab40;
+  --fluid-grad-3: #0084ff;
+  --fluid-grad-4: #8a2be2;
+
+  --glass-bg: rgba(255, 255, 255, 0.15);
+  --glass-hover: rgba(255, 255, 255, 0.25);
+  --glass-border-main: rgba(255, 255, 255, 0.2);
+  --glass-border-shine: rgba(255, 255, 255, 0.7);
+
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.9);
+  --accent-pill: linear-gradient(135deg, #0055ff, #0033cc);
+
+  --shadow-soft: 0 8px 32px rgba(0, 0, 0, 0.15);
 }
 
-@keyframes pulseIcon {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(233, 30, 99, 0.4); }
-  70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(233, 30, 99, 0); }
-  100% { transform: scale(1); }
+/* DARK MODE */
+:host-context(.dark), :host-context([data-theme="dark"]) {
+  --fluid-grad-1: #3b0764;
+  --fluid-grad-2: #4c1d95;
+  --fluid-grad-3: #1e3a8a;
+  --fluid-grad-4: #0f172a;
+
+  --glass-bg: rgba(0, 0, 0, 0.25);
+  --glass-hover: rgba(0, 0, 0, 0.4);
+  --glass-border-main: rgba(255, 255, 255, 0.05);
+  --glass-border-shine: rgba(255, 255, 255, 0.2);
+
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --accent-pill: linear-gradient(135deg, #3b82f6, #1d4ed8);
+
+  --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
+/* --- ANIMATIONS --- */
+@keyframes fluidMesh {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes fadeInUpFloat {
+  0% { opacity: 0; transform: translateY(40px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* --- MAIN CONTAINER --- */
 .contact-section {
-  background: var(--bg-primary); /* Follows your theme bg */
-  padding-bottom: 80px;
+  /* Continuous Liquid Background */
+  background: linear-gradient(-45deg, var(--fluid-grad-1), var(--fluid-grad-2), var(--fluid-grad-3), var(--fluid-grad-4));
+  background-size: 300% 300%;
+  animation: fluidMesh 12s ease-in-out infinite;
+
+  padding-bottom: 100px;
   overflow-x: hidden;
+  color: var(--text-primary);
+  font-family: 'Lato', sans-serif;
 
   .header-banner {
-    /* Uses your brand Rose/Gold feel for the overlay */
-    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+    /* Blending the banner image into the liquid theme with a strong gradient overlay */
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.9)),
                 url("/public/image/contact.jpg") center/cover no-repeat;
-    height: 250px;
+    height: 320px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
 
+    /* Sweeping bottom curves to match the UI language */
+    border-bottom-left-radius: 60px;
+    border-bottom-right-radius: 60px;
+    margin-bottom: -60px; /* Overlap trick */
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    z-index: 1;
+
     h1 {
-      font-size: 3rem;
+      font-size: clamp(2.5rem, 5vw, 4rem);
       font-weight: 900;
-      letter-spacing: 3px;
+      letter-spacing: 2px;
       color: #ffffff;
       margin: 0;
-      animation: fadeInUp 0.8s ease-out forwards;
+      text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      animation: fadeInUpFloat 0.8s ease-out forwards;
 
-      span { color: var(--brand-gold, #ffd700); }
+      span { color: #ffd700; /* Keeping your gold accent */ }
     }
   }
 
   .container {
     max-width: 1200px;
-    margin: -60px auto 0;
-    padding: 0 20px;
+    margin: 0 auto;
+    padding: 0 5%;
     position: relative;
     z-index: 2;
   }
@@ -48,100 +107,123 @@
   .info-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
-    margin-bottom: 40px;
+    gap: 40px;
+    margin-bottom: 50px;
   }
 
+  /* --- DRIBBBLE GLASS CARDS --- */
   .contact-card {
     text-align: center;
-    padding: 40px 25px;
-    border: 1px solid var(--border-light, rgba(255, 255, 255, 0.1));
-    border-radius: 24px;
-    background: var(--bg-glass, rgba(20, 20, 20, 0.8));
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    color: var(--text-primary);
+    padding: 50px 30px;
 
+    /* Frosted Pill Glass Base */
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 45px; /* Extremely rounded */
+    border: 1px solid var(--glass-border-main);
+    border-top: 1px solid var(--glass-border-shine);
+    border-left: 1px solid var(--glass-border-shine);
+    box-shadow: var(--shadow-soft);
+
+    color: var(--text-primary);
     opacity: 0;
-    animation: fadeInUp 0.6s ease-out forwards;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: fadeInUpFloat 0.8s ease-out forwards;
+    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 
     &:nth-child(1) { animation-delay: 0.2s; }
     &:nth-child(2) { animation-delay: 0.4s; }
 
     &:hover {
       transform: translateY(-12px);
-      border-color: var(--brand-rose);
-      box-shadow: 0 15px 45px rgba(233, 30, 99, 0.2);
+      background: var(--glass-hover);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
 
       .icon-circle {
-        background: var(--brand-rose);
-        color: white;
-        animation: pulseIcon 1.5s infinite;
+        transform: scale(1.1) rotate(5deg);
       }
     }
 
     .icon-circle {
-      width: 80px;
-      height: 80px;
-      background: rgba(233, 30, 99, 0.1);
-      color: var(--brand-rose);
-      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      margin: 0 auto 25px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 25px;
-      transition: all 0.4s ease;
+      border-radius: 50%;
 
-      mat-icon { font-size: 35px; width: 35px; height: 35px; }
+      /* Solid Liquid Accent Pill */
+      background: var(--accent-pill);
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(0, 85, 255, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+      transition: transform 0.4s ease;
+
+      mat-icon { font-size: 32px; width: 32px; height: 32px; }
     }
 
     h3 {
-      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.6rem;
       font-weight: 800;
-      text-transform: uppercase;
       letter-spacing: 1px;
       margin-bottom: 15px;
-      color: var(--brand-gold);
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
     }
 
     p {
       color: var(--text-secondary);
       line-height: 1.6;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
       font-size: 1.05rem;
     }
 
+    /* Glass Action Buttons */
     .action-btn {
       border-radius: 50px;
-      border: 1px solid var(--brand-rose);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--glass-border-shine);
       color: var(--text-primary);
-      padding: 0 30px;
-      height: 45px;
-      line-height: 43px;
+      padding: 0 35px;
+      height: 50px;
+      line-height: 48px;
       text-transform: uppercase;
       font-weight: 700;
       letter-spacing: 1px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
 
       &:hover {
-        background: var(--brand-rose);
-        color: white;
+        background: var(--accent-pill);
+        border-color: transparent;
+        box-shadow: 0 8px 20px rgba(0, 85, 255, 0.4);
+        transform: translateY(-2px);
       }
     }
   }
 
+  /* --- MAP CONTAINER GLASS --- */
   .map-card {
-    background: var(--bg-glass);
-    border: 1px solid var(--border-light);
-    border-radius: 24px;
-    padding: 10px;
-    overflow: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border-main);
+    border-top: 1px solid var(--glass-border-shine);
+    border-left: 1px solid var(--glass-border-shine);
+    border-radius: 45px;
+    padding: 15px;
+    box-shadow: var(--shadow-soft);
+
     opacity: 0;
-    animation: fadeInUp 0.6s ease-out 0.6s forwards;
+    animation: fadeInUpFloat 0.8s ease-out 0.6s forwards;
 
     iframe {
-      border-radius: 18px;
-      filter: grayscale(0.2) invert(0) contrast(1.1); /* Slightly muted to fit theme */
+      border-radius: 32px; /* Inner radius slightly smaller than outer for perfectly nested corners */
+      filter: contrast(1.1) brightness(0.9);
+      transition: filter 0.4s ease;
+
+      &:hover {
+        filter: contrast(1) brightness(1.05); /* Lights up slightly when interacted with */
+      }
     }
   }
 }

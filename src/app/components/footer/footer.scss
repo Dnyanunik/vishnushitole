@@ -1,30 +1,56 @@
-.cockpit-footer {
-  /* 1. Background Image with Dark Overlay */
-  background:
-    linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), /* Darkens the image */
-    url("/image/meeting.png") center/cover no-repeat; /* Replace with your image path */
+/* ==========================================================================
+   LIQUID FOOTER (Pure Solid Dark - No Theme Multi-Color)
+   ========================================================================== */
 
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 30px 5% 15px; /* Slightly more top padding for visual balance */
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
+:host {
+  /* THE SHIELD: Forces the absolute container of this component to be black.
+     This stops the browser's white canvas from peeking over the curved shoulders! */
+  display: block;
+  width: 100%;
+  background-color: #000000 !important;
+}
 
-  /* Optional: Adds a subtle 'glass' shine to the top edge */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--brand-rose), transparent);
-    opacity: 0.5;
+/* Gentle breathing animation to make the dark footer feel premium */
+@keyframes waterBreathe {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.15), 0 -5px 20px rgba(0, 0, 0, 0.6);
+  }
+  50% {
+    transform: translateY(-3px);
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.25), 0 -10px 30px rgba(0, 0, 0, 0.8);
   }
 }
 
-/* Ensure content stays above the background */
+.cockpit-footer {
+  /* Clean dark glass background - no white or colored tints */
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0.7) 0%, rgba(5, 5, 5, 0.95) 100%);
+
+  /* Premium glassmorphism blur effect */
+  backdrop-filter: blur(30px) saturate(100%);
+  -webkit-backdrop-filter: blur(30px) saturate(100%);
+
+  /* Elegant white rim highlight on the top edge */
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  border-bottom: none;
+
+  /* The beautiful curved top shoulders */
+  border-radius: 40px 40px 0 0;
+
+  padding: 40px 5% 20px;
+  margin-top: 0; /* Changed from 50px to 0 to prevent accidental layout gaps */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+
+  animation: waterBreathe 6s ease-in-out infinite;
+  color: #ffffff;
+}
+
 .footer-content {
   position: relative;
   z-index: 2;
@@ -37,79 +63,126 @@
   gap: 20px;
 }
 
-/* Rest of your existing styles... */
+/* --- TITLE AREA --- */
 .footer-title {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+
   h3 {
-    font-family: 'Rajdhani', sans-serif;
-    font-size: 1rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2rem;
     font-weight: 800;
     letter-spacing: 2px;
-    color: #ffffff; /* Explicit white for contrast */
     margin: 0;
+    color: #ffffff;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
   }
+
+  /* White indicator drop */
   .dot {
-    width: 6px; height: 6px;
-    background: var(--brand-rose);
+    width: 12px; height: 12px;
+    background: rgba(255, 255, 255, 0.9);
     border-radius: 50%;
-    box-shadow: 0 0 10px var(--brand-rose);
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 1), 0 0 10px rgba(255, 255, 255, 0.3);
   }
 }
 
+/* --- CONTACT GRID --- */
 .contact-grid {
   display: flex;
   gap: 30px;
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 15px;
+    gap: 20px;
     width: 100%;
   }
 }
 
 .contact-card {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+
   .name {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.7); /* Softened white */
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7);
     text-transform: uppercase;
+    margin-left: 12px;
+    letter-spacing: 1px;
   }
 }
 
+/* --- CALL BUTTONS --- */
 .call-btn {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: rgba(255, 255, 255, 0.05); /* Glass effect */
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 6px 15px;
-  border-radius: 50px;
-  color: #fff;
-  text-decoration: none;
-  font-family: 'Rajdhani', sans-serif;
-  font-weight: 700;
-  font-size: 0.9rem;
-  transition: 0.3s;
+  gap: 10px;
 
-  svg { width: 14px; height: 14px; stroke: var(--brand-gold); }
+  /* Carved dark pool look */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+  padding: 12px 24px;
+  border-radius: 50px;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  svg { width: 18px; height: 18px; stroke: #ffffff; transition: stroke 0.3s; }
 
   &:hover {
     background: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
-    border-color: var(--brand-gold);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    svg { stroke: #ffffff; }
+  }
+
+  &:active { transform: scale(0.97); }
+}
+
+/* Clean WhatsApp green tinted button */
+.call-btn.highlight {
+  background: rgba(37, 211, 102, 0.15);
+  border: 1px solid rgba(37, 211, 102, 0.2);
+  border-top: 1px solid rgba(37, 211, 102, 0.4);
+
+  &:hover {
+    background: rgba(37, 211, 102, 0.3);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2);
   }
 }
 
+/* --- COPYRIGHT --- */
 .copyright {
   position: relative;
   z-index: 2;
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.4);
   letter-spacing: 2px;
   text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 20px;
+  width: 100%;
+}
+
+/* ==========================================================================
+   MODERN UI BASE CONTAINER (Pure Fixed Dark Wrapper)
+   ========================================================================== */
+
+.modern-footer-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 40px 0 0 0; /* Padding optimization */
+  background: #000000 !important; /* Locks parent context to absolute pure black */
+  overflow: hidden;
+  z-index: 1;
 }

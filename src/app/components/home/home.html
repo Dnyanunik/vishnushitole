@@ -1,144 +1,167 @@
-<div class="home-wrapper">
-
-  <header class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h1 class="animate-up accent-text">VISHNU</h1>
-      <p class="animate-up delay-1 subtitle">PREMIUM TOURS & TRAVEL SERVICES</p>
-
-      <div class="hero-badges animate-up delay-2">
-        <div class="badge"><span>🏅</span> Trusted & Reliable</div>
-        <div class="badge"><span>🌟</span> 10+ Years Experience</div>
-        <div class="badge"><span>🚘</span> 24/7 Outstation & Local</div>
-      </div>
-
-      <div class="hero-actions animate-up delay-3">
-        <button class="btn-primary" (click)="makeCall()">📞 Call Now</button>
-        <button class="btn-outline" (click)="openModal('Custom Enquiry')">📅 Book Ride</button>
-      </div>
+<div class="ios-dashboard">
+  <header class="hero-widget glass-widget">
+    <div class="hero-text">
+      <h1>Vishnu Tours</h1>
+      <p>Premium Travel & Car Rentals</p>
+    </div>
+    <div class="hero-actions">
+      <button type="button" class="btn-primary glass-widget" (click)="makeCall()">
+        <mat-icon>call</mat-icon> Call Now
+      </button>
+      <button type="button" class="btn-secondary glass-widget" (click)="openMainModal()">
+        <mat-icon>directions_car</mat-icon> Book Ride
+      </button>
     </div>
   </header>
 
-  <section class="section welcome-company">
-    <div class="section-title">
-      <h2>WELCOME TO VISHNU TOURS & TRAVEL</h2>
-      <div class="line"></div>
-      <p>Your Trusted Travel Partner</p>
+  <div class="info-grid">
+    <div class="info-widget glass-widget">
+      <div class="widget-icon"><mat-icon>verified</mat-icon></div>
+      <h3>Why Choose Us</h3>
+      <p>10+ years of trusted service across Maharashtra. 24/7 outstation and local support.</p>
     </div>
+    <div class="info-widget glass-widget">
+      <div class="widget-icon"><mat-icon>explore</mat-icon></div>
+      <h3>Our Mission</h3>
+      <p>Delivering top-tier, well-maintained fleets with professional drivers for a seamless journey.</p>
+    </div>
+  </div>
 
-    <div class="premium-grid">
-      <div class="premium-card glass intro-card fade-up">
-        <h3 class="gradient-text">Elevating Your Journey</h3>
-        <p><strong>Vishnu Tours & Travel</strong> is a premier transport organization specializing in top-tier car rentals and comprehensive tour services across Maharashtra.</p>
-        <p>Whether you need a reliable Swift for city navigation, a spacious Innova for outstation family trips, or a Tempo Traveller for group tours, we provide unparalleled service quality. We constantly strive to offer safe, clean, and highly efficient transport solutions.</p>
-      </div>
+  <div class="section-header">
+    <h2>Our Fleet</h2>
+  </div>
 
-      <div class="premium-card glass vm-card fade-up delay-1">
-        <div class="vm-block">
-          <div class="icon-wrapper">
-            <mat-icon>visibility</mat-icon>
-          </div>
-          <div class="text-content">
-            <h4>Our Vision</h4>
-            <p>To be the most trusted and innovative transport partner in Maharashtra, delivering quality services that make every journey safe, comfortable, and memorable.</p>
-          </div>
+  <div class="fleet-grid">
+    <div class="car-widget glass-widget" *ngFor="let car of cars; let i = index">
+      <div class="car-card-content">
+        <div class="car-image-container">
+          <img [src]="car.image" [alt]="car.name" class="car-img">
         </div>
-
-        <div class="vm-block mt-4">
-          <div class="icon-wrapper">
-            <mat-icon>track_changes</mat-icon>
-          </div>
-          <div class="text-content">
-            <h4>Our Mission</h4>
-            <p>To customize our transport solutions to extract maximum value for our clients. Through well-maintained fleets and professional drivers, our objective is to ensure a seamless travel experience.</p>
-          </div>
+        <div class="car-details">
+          <h3>{{ car.name }}</h3>
+          <p>{{ car.desc }}</p>
         </div>
+        <button type="button" class="btn-book glass-widget" (click)="openCarModal(car.name, i)">
+          Book This Car
+        </button>
       </div>
     </div>
-  </section>
-
-  <section class="section fleet">
-    <div class="section-title">
-      <h2>OUR CAR RENTAL SERVICE</h2>
+  </div>
+</div> <div class="global-modal-blur" *ngIf="activeCarIndex !== null && activeCarIndex !== undefined && cars && cars[activeCarIndex]" (click)="closeModals()">
+  <div class="centered-modal-card" (click)="$event.stopPropagation()">
+    <div class="popup-header">
+      <h2>Confirm {{ cars[activeCarIndex].name }}</h2>
+      <button type="button" class="btn-close-circle" (click)="closeModals()">
+        <mat-icon>close</mat-icon>
+      </button>
     </div>
 
-    <div class="fleet-grid">
-      <div class="car-card" *ngFor="let car of cars">
-        <div class="card-content">
-          <h3 class="car-title">{{ car.name | uppercase }}</h3>
-          <p class="car-desc">{{ car.desc }}</p>
-
-          <div class="img-box">
-            <img [src]="car.image" [alt]="car.name">
-          </div>
+    <form class="popup-form" (ngSubmit)="$event.preventDefault()">
+      <div class="form-row-split">
+        <div class="input-glass-group">
+          <label>Your Name</label>
+          <input type="text" placeholder="Name" [(ngModel)]="guestName" name="guestName" class="glass-input">
         </div>
-        <button class="btn-book" (click)="openModal(car.name)">BOOK NOW</button>
-      </div>
-    </div>
-  </section>
-
-  <div class="modal-backdrop" *ngIf="isModalOpen" (click)="closeModal()">
-    <div class="modal-box" (click)="$event.stopPropagation()">
-      <button class="close-btn" (click)="closeModal()">&#10005;</button>
-
-      <div class="modal-header">
-        <div class="icon-circle">
-          <svg fill="#12141a" width="26px" height="26px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>
-        </div>
-        <div class="header-text">
-          <h2>Book Your Ride</h2>
-          <p>Instant booking via WhatsApp</p>
+        <div class="input-glass-group">
+          <label>Phone Number</label>
+          <input type="tel" placeholder="Mobile" [(ngModel)]="guestPhone" name="guestPhone" class="glass-input">
         </div>
       </div>
 
-      <form class="booking-form">
-        <div class="form-row">
-          <div class="input-group highlight-box">
-            <label>Selected Vehicle / Package</label>
-            <input type="text" [value]="selectedVehicle" readonly>
+      <div class="liquified-route-card">
+        <div class="route-track-line">
+          <div class="node-dot source-dot"></div>
+          <div class="pulse-line"></div>
+          <div class="node-dot dest-dot"></div>
+        </div>
+        <div class="route-inputs-stack">
+          <div class="input-glass-group compact-group">
+            <label>Source (Pickup)</label>
+            <input type="text" placeholder="Starting City" [(ngModel)]="fromCity" name="fromCity" class="glass-input clear-bg">
+          </div>
+          <div class="input-glass-group compact-group">
+            <label>Destination (Drop)</label>
+            <input type="text" placeholder="Dropoff City" [(ngModel)]="toCity" name="toCity" class="glass-input clear-bg">
           </div>
         </div>
+      </div>
 
-        <div class="form-row">
-          <div class="input-group">
-            <label>Full Name</label>
-            <input type="text" placeholder="Enter your name" [(ngModel)]="guestName" name="guestName">
-          </div>
-          <div class="input-group">
-            <label>Mobile Number</label>
-            <input type="tel" placeholder="Enter mobile number" [(ngModel)]="guestPhone" name="guestPhone">
-          </div>
+      <div class="form-row-split">
+        <div class="input-glass-group">
+          <label>Pickup Date</label>
+          <input type="date" [(ngModel)]="pickupDate" name="pickupDate" class="glass-input highlight-input">
         </div>
+        <div class="input-glass-group">
+          <label>Pickup Time</label>
+          <input type="time" [(ngModel)]="pickupTime" name="pickupTime" class="glass-input highlight-input">
+        </div>
+      </div>
 
-        <div class="form-row">
-          <div class="input-group" [class.auto-filled]="fromCity">
-            <label>Pickup City</label>
-            <input type="text" placeholder="e.g. Pune" [(ngModel)]="fromCity" name="fromCity">
-          </div>
-          <div class="input-group" [class.auto-filled]="toCity">
-            <label>Destination City</label>
-            <input type="text" placeholder="e.g. Mumbai" [(ngModel)]="toCity" name="toCity">
-          </div>
-        </div>
+      <button type="button" class="btn-whatsapp-submit" (click)="submitBooking()">
+        <mat-icon>send</mat-icon> Confirm on WhatsApp
+      </button>
+    </form>
+  </div>
+</div>
 
-        <div class="form-row">
-          <div class="input-group">
-            <label>Pickup Date</label>
-            <input type="date" [(ngModel)]="pickupDate" name="pickupDate">
-          </div>
-          <div class="input-group">
-            <label>Pickup Time</label>
-            <input type="time" [(ngModel)]="pickupTime" name="pickupTime">
-          </div>
-        </div>
-
-        <div class="submit-row">
-          <button type="button" class="submit-btn" (click)="submitBooking()">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="margin-right: 8px; vertical-align: middle;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
-            Send to WhatsApp
-          </button>
-        </div>
-      </form>
+<div class="global-modal-blur" *ngIf="isMainModalOpen" (click)="closeModals()">
+  <div class="centered-modal-card" (click)="$event.stopPropagation()">
+    <div class="popup-header">
+      <h2>Quick Ride Booking</h2>
+      <button type="button" class="btn-close-circle" (click)="closeModals()">
+        <mat-icon>close</mat-icon>
+      </button>
     </div>
+
+    <form class="popup-form" (ngSubmit)="$event.preventDefault()">
+      <div class="input-glass-group">
+        <label>Vehicle Preference</label>
+        <input type="text" placeholder="e.g., Sedan, SUV, Ertiga" [(ngModel)]="selectedVehicle" name="selectedVehicle" class="glass-input highlight-input">
+      </div>
+
+      <div class="form-row-split">
+        <div class="input-glass-group">
+          <label>Name</label>
+          <input type="text" placeholder="Your name" [(ngModel)]="guestName" name="guestName" class="glass-input">
+        </div>
+        <div class="input-glass-group">
+          <label>Phone</label>
+          <input type="tel" placeholder="Mobile number" [(ngModel)]="guestPhone" name="guestPhone" class="glass-input">
+        </div>
+      </div>
+
+      <div class="liquified-route-card">
+        <div class="route-track-line">
+          <div class="node-dot source-dot"></div>
+          <div class="pulse-line"></div>
+          <div class="node-dot dest-dot"></div>
+        </div>
+        <div class="route-inputs-stack">
+          <div class="input-glass-group compact-group">
+            <label>Source (Pickup)</label>
+            <input type="text" placeholder="Starting City" [(ngModel)]="fromCity" name="fromCity" class="glass-input clear-bg">
+          </div>
+          <div class="input-glass-group compact-group">
+            <label>Destination (Drop)</label>
+            <input type="text" placeholder="Dropoff City" [(ngModel)]="toCity" name="toCity" class="glass-input clear-bg">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row-split">
+        <div class="input-glass-group">
+          <label>Date</label>
+          <input type="date" [(ngModel)]="pickupDate" name="pickupDate" class="glass-input highlight-input">
+        </div>
+        <div class="input-glass-group">
+          <label>Time</label>
+          <input type="time" [(ngModel)]="pickupTime" name="pickupTime" class="glass-input highlight-input">
+        </div>
+      </div>
+
+      <button type="button" class="btn-whatsapp-submit" (click)="submitBooking()">
+        <mat-icon>send</mat-icon> Send Request via WhatsApp
+      </button>
+    </form>
   </div>
 </div>

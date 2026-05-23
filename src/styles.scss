@@ -62,19 +62,33 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* --- 5. GLOBAL DIALOG THEMING (The Reservation Card) --- */
-.cdk-overlay-pane {
-  display: flex !important;
-  justify-content: center !important;
+/* ==========================================================================
+   FIX FOR CUSTOM POPUP POSITIONING (Keeps it centered on screen)
+   ========================================================================== */
 
-  .mat-mdc-dialog-container {
-    /* Less rounded corners for a classic paper invitation feel */
-    border-radius: 8px !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-    background-color: var(--bg-primary) !important;
-    border: 2px solid var(--brand-gold) !important; /* Prominent gold trim */
-    box-shadow: var(--card-shadow) !important;
-  }
+/* This targets your custom HTML popup template layout container */
+.modal-overlay,
+div[class*="modal-wrapper"],
+div[class*="popup-overlay"] {
+  position: fixed !important;   /* Locks the overlay to the browser window viewport */
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background-color: rgba(0, 0, 0, 0.6) !important; /* Dims the underlying home screen */
+  z-index: 99999 !important;     /* Forces it to float completely on top of everything */
+
+  display: flex !important;
+  justify-content: center !important; /* Horizontally centers your form */
+  align-items: center !important;     /* Vertically centers your form */
+}
+
+/* Ensures your form container stays bounded and readable */
+div[class*="modal-card"],
+form[class*="booking-form"] {
+  position: relative !important;
+  z-index: 100000 !important;
+  margin: auto !important;
 }
 
 .premium-dialog {
@@ -124,3 +138,4 @@ h1, h2, h3, h4, h5, h6 {
     border-color: var(--brand-gold);
   }
 }
+

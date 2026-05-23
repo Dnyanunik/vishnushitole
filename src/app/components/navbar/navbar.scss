@@ -1,79 +1,94 @@
+/* ==========================================================================
+   LIQUID WATERFLOW NAVBAR
+   ========================================================================== */
+
 :host {
   display: block;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
+  z-index: 9999;
+  /* WELCOME ANIMATION: Drips down like water */
+  animation: liquidDropIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-origin: top;
 }
 
-/* --- MAIN CONTAINER --- */
-.cockpit-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 5%;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Transparent initially to overlay the hero image */
-  background: transparent;
-  backdrop-filter: blur(0px);
-
-  /* SCROLLED STATE (Glassmorphism) */
-  &.scrolled {
-    background: var(--nav-bg);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(233, 30, 99, 0.1); /* Subtle brand rose tint */
-    padding: 12px 5%;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); /* Stronger shadow for dark themes */
+/* --- THE DRIP ENTRY ANIMATION --- */
+@keyframes liquidDropIn {
+  0% {
+    transform: translateY(-100%);
+    border-radius: 0 0 100px 100px; /* Stretches like a heavy drop */
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(5px);
+    border-radius: 0 0 30px 30px;
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    border-radius: 0;
+    opacity: 1;
   }
 }
 
-/* --- BRANDING --- */
+/* --- MAIN CONTAINER --- */
+.cockpit-nav { /* Keeping your HTML class name so it doesn't break */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 5%;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  background: transparent;
+
+  /* SCROLLED STATE (Thick Water Glass) */
+  &.scrolled {
+    padding: 15px 5%;
+    background: rgba(20, 20, 20, 0.25);
+    backdrop-filter: blur(25px) saturate(150%);
+    -webkit-backdrop-filter: blur(25px) saturate(150%);
+    /* Top light reflection + bottom shadow = water surface */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), inset 0 2px 5px rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* --- BRANDING / LOGO --- */
 .brand-zone {
   display: flex;
   flex-direction: column;
   cursor: pointer;
+  z-index: 100;
 
   .logo-text {
-    font-size: 1.6rem;
-    font-weight: 800;
-    color: #ffffff; /* Explicitly white for dark hero images */
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #ffffff;
     letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: color 0.3s;
+    font-family: 'Playfair Display', serif;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.3);
     line-height: 1.1;
 
     .highlight {
-      color: var(--brand-rose, #e91e63); /* Matches the pink '&' */
+      /* Liquid Cyan/Blue gradient for the brand text */
+      background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 4px rgba(0, 242, 254, 0.3));
     }
   }
 
   .status-indicator {
-    font-size: 0.75rem;
-    color: rgba(203, 196, 196, 0.8); /* Light gray for subtext */
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    letter-spacing: 2px;
-    margin-top: 2px;
-    text-transform: uppercase;
-    font-weight: 600;
-
-    .dot {
-      width: 6px;
-      height: 6px;
-      background: #00ff88;
-      border-radius: 50%;
-      box-shadow: 0 0 8px #00ff88;
-      animation: blink 2s infinite;
-    }
+    display: none; /* Removing the mechanical cockpit dots */
   }
 }
-/* --- DESKTOP MENU --- */
+
+/* --- DESKTOP MENU (Waterflow Links) --- */
 .desktop-menu {
   display: none;
-  gap: 40px;
+  gap: 10px;
 
   @media(min-width: 900px) {
     display: flex;
@@ -81,380 +96,192 @@
   }
 
   .nav-link {
-    /* ✅ Swapped hardcoded rgba for a theme variable, keeping your gray as a fallback */
-    color: var(--text-secondary, rgba(181, 171, 171, 0.8));
+    color: #ffffff;
     text-decoration: none;
     font-weight: 700;
+    font-family: 'Lato', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
+    padding: 12px 24px;
+    border-radius: 50px; /* Pill shaped liquid buttons */
     position: relative;
-    transition: 0.3s;
-    padding-bottom: 5px;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 1;
+    overflow: hidden;
 
-    /* Hover & Active Effect */
-    &::after {
+    /* Background Water Swell Effect */
+    &::before {
       content: '';
       position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0%;
-      height: 3px;
-      background: var(--brand-rose, #e91e63);
-      transition: width 0.3s ease;
-      border-radius: 2px;
+      bottom: -100%; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.2), rgba(79, 172, 254, 0.4));
+      border-radius: 50px;
+      transition: all 0.4s ease;
+      z-index: -1;
     }
+
+    /* Distinct Link Colors */
+    &:nth-child(1):hover, &:nth-child(1).active { color: #00f2fe; } /* Home: Cyan Water */
+    &:nth-child(2):hover, &:nth-child(2).active { color: #ffab40; } /* Service: Warm Coral */
+    &:nth-child(3):hover, &:nth-child(3).active { color: #c418a5; } /* Contact: Deep Purple/Pink */
 
     &:hover, &.active {
-      /* ✅ Swapped hardcoded white for your primary text variable */
-      color: var(--text-primary, #ffffff);
-      &::after { width: 100%; }
+      transform: translateY(-2px);
+      &::before {
+        bottom: 0; /* Water rises up */
+        border-top: 1px solid rgba(255, 255, 255, 0.4); /* Edge shine */
+      }
     }
   }
 }
-/* --- ACTION ZONE --- */
-.action-zone {
-  display: flex;
-  align-items: center;
-  gap: 20px; /* Slightly wider gap between sun icon and button */
-}
 
-/* Theme Toggle Button (Sun/Moon) */
-.theme-toggle {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ffffff;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
-
-  svg {
-    width: 20px;
-    height: 20px;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-  }
-
-  .sun {
-    stroke: var(--brand-gold, #ffd700);
-    fill: rgba(255, 215, 0, 0.1);
-    filter: drop-shadow(0 0 2px rgba(255, 215, 0, 0.5));
-  }
-
-  .moon {
-    stroke: #ffd700;
-    fill: transparent;
-  }
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: var(--brand-rose, #e91e63);
-    box-shadow: 0 0 15px rgba(233, 30, 99, 0.3);
-    transform: translateY(-2px);
-
-    svg {
-      transform: rotate(90deg) scale(1.1);
-    }
-  }
-
-  &:active {
-    transform: scale(0.95);
-  }
-}
-
-/* Desktop Book Button */
-.book-btn-desktop {
-  display: none;
-  background: var(--brand-rose, #e91e63);
-  border: none;
-  color: white;
-  padding: 10px 24px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 6px; /* Slightly softer corners */
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
-  transition: 0.3s;
-
-  @media(min-width: 900px) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px; /* Spaces the car icon and text */
-  }
-
-  /* Assuming you are using an icon font or SVG inside the button */
-  mat-icon, i, svg {
-    font-size: 1.1rem;
-    width: 1.1rem;
-    height: 1.1rem;
-  }
-
-  &:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(233, 30, 99, 0.5);
-    background: #d81557; /* Slightly darker on hover */
-  }
-}
-
-/* --- HAMBURGER --- */
+/* --- HAMBURGER MENU (Liquid Droplets) --- */
 .mobile-toggle {
   background: none;
   border: none;
   cursor: pointer;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   position: relative;
-  z-index: 1200;
-  display: block;
+  z-index: 12000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   @media(min-width: 900px) { display: none; }
 
   .bar {
     position: absolute;
-    left: 5px;
     width: 30px;
-    height: 3px;
-    background: #ffffff; /* White for dark nav */
-    transition: 0.3s;
-    border-radius: 2px;
+    height: 4px;
+    background: #ffffff;
+    border-radius: 50px;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bouncy liquid transition */
 
-    &.top { top: 10px; }
-    &.mid { top: 18px; }
-    &.bot { top: 26px; }
+    &.top { transform: translateY(-10px); }
+    &.mid { transform: translateY(0) scale(1); opacity: 1; }
+    &.bot { transform: translateY(10px); }
   }
 
   &.open {
-    .top { transform: rotate(45deg); top: 18px; background: var(--brand-rose, #e91e63); }
-    .mid { opacity: 0; }
-    .bot { transform: rotate(-45deg); top: 18px; background: var(--brand-rose, #e91e63); }
+    .top { transform: translateY(0) rotate(45deg); background: #00f2fe; }
+    .mid { transform: translateY(0) scale(0); opacity: 0; }
+    .bot { transform: translateY(0) rotate(-45deg); background: #00f2fe; }
   }
 }
 
-/* --- MOBILE OVERLAY (PRESERVED PREVIOUS UI) --- */
+/* --- MOBILE LIQUID OVERLAY --- */
 .mobile-overlay {
   position: fixed;
   inset: 0;
   width: 100%;
   height: 100dvh;
-  background: var(--bg-primary, #121212);
+  /* Deep water gradient */
+  background: linear-gradient(180deg, rgba(10,10,15,0.9) 0%, rgba(15,30,50,0.95) 100%);
+  backdrop-filter: blur(30px) saturate(120%);
+  -webkit-backdrop-filter: blur(30px) saturate(120%);
   z-index: 10000;
   display: flex;
   flex-direction: column;
-  padding: 30px 20px;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.4s ease-in-out;
-  overflow-y: auto;
+  justify-content: center;
+  padding: 40px 20px;
+
+  /* Start as a tight droplet in the top right corner */
+  clip-path: circle(0% at 90% 10%);
+  transition: clip-path 0.7s cubic-bezier(0.7, 0, 0.2, 1);
+  overflow: hidden;
 
   &.active {
-    visibility: visible;
-    opacity: 1;
-    .mobile-links a, .theme-dashboard-toggle, .ignition-zone {
+    /* Explodes into a full screen liquid wave */
+    clip-path: circle(150% at 90% 10%);
+
+    .mobile-links a {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
     }
   }
 
+  /* Decorative Background Ripples */
   .cockpit-glare {
     position: absolute;
-    top: -10%; left: -10%;
-    width: 60%; height: 60%;
-    background: radial-gradient(circle, var(--brand-rose, #e91e63) 0%, transparent 70%);
-    filter: blur(80px);
-    opacity: 0.12;
+    top: -20%; left: -20%;
+    width: 140%; height: 140%;
+    background: radial-gradient(circle at 50% 50%, rgba(0, 242, 254, 0.1) 0%, transparent 50%);
+    filter: blur(60px);
     pointer-events: none;
+    animation: pulseWater 6s infinite alternate;
   }
 }
 
-/* HUD Header */
-.hud-header {
-  margin-bottom: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  .hud-top {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-
-    .hud-unit {
-      font-family: 'Rajdhani', sans-serif;
-      font-size: 0.65rem;
-      color: var(--brand-gold, #ffd700);
-      border: 1px solid var(--brand-gold, #ffd700);
-      padding: 2px 8px;
-      border-radius: 4px;
-    }
-
-    .hud-close {
-      background: rgba(233, 30, 99, 0.1);
-      border: 1px solid rgba(233, 30, 99, 0.2);
-      color: var(--brand-rose, #e91e63);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
-  .hud-title {
-    text-align: center;
-
-    h1 {
-      font-size: 1.8rem;
-      margin: 0;
-      font-weight: 800;
-      color: var(--text-primary, #ffffff);
-
-      span {
-        color: var(--brand-gold, #ffd700);
-      }
-    }
-
-    p {
-      font-size: 0.7rem;
-      color: var(--text-secondary, #aaaaaa);
-      letter-spacing: 2px;
-      margin-top: 5px;
-      text-transform: uppercase;
-    }
-  }
+@keyframes pulseWater {
+  0% { transform: scale(0.9); opacity: 0.5; }
+  100% { transform: scale(1.1); opacity: 0.8; }
 }
 
-/* Control Grid List */
+/* Hidden Header from old layout */
+.hud-header { display: none; }
+
+/* --- MOBILE LINKS --- */
 .mobile-links {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-bottom: 80px;
+  gap: 20px;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 
   a {
-    background: var(--bg-secondary, #1e1e1e);
-    border: 1px solid var(--border-color, #333);
-    height: 75px;
-    border-radius: 16px;
+    background: rgba(11, 60, 150, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    height: 80px;
+    border-radius: 40px; /* Pill shaped */
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    padding: 0 20px;
-    color: var(--text-primary, #ffffff);
+    padding: 0 25px;
+    color: #ffffff;
     text-decoration: none;
-    font-family: 'Rajdhani', sans-serif;
-    font-weight: 500; /* Bumped slightly for legibility */
-    font-size: 1.1rem;
-    letter-spacing: 1.5px;
-    transition: 0.3s;
-    opacity: 0;
-    transform: translateY(20px);
-    transition-delay: calc(var(--i, 0) * 0.1s); /* Requires inline --i variables in HTML */
+    font-family: 'Lato', sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: calc(var(--i, 0) * 0.1s); /* Keeps the stagger effect */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+
+    /* Liquid Gradient Icons */
     .icon-box {
-      width: 35px; /* Made slightly larger to fit icons nicely */
-      height: 35px;
-      background: rgba(233, 30, 99, 0.1);
+      width: 45px;
+      height: 45px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-right: 20px; /* Reduced gap to bring text closer to icon */
-      mat-icon, i { color: var(--brand-rose, #e91e63); font-size: 1.2rem; }
+      margin-right: 25px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.0));
+      box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.3);
+
+      mat-icon, i { font-size: 1.5rem; }
     }
+
+    /* Unique Mobile Colors */
+    &:nth-child(1) .icon-box mat-icon { color: #00f2fe; }
+    &:nth-child(2) .icon-box mat-icon { color: #ffab40; }
+    &:nth-child(3) .icon-box mat-icon { color: #c418a5; }
 
     &:active {
-      border-color: var(--brand-rose, #e91e63);
-      background: rgba(233, 30, 99, 0.05);
-      box-shadow: 0 4px 15px rgba(233, 30, 99, 0.15);
-      transform: scale(0.98);
+      transform: scale(0.95);
+      background: rgba(255, 255, 255, 0.15);
+      border-color: #00f2fe;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.3);
     }
   }
-}
-
-/* Drive Mode Dashboard Toggle */
-.theme-dashboard-toggle {
-  width: 100%;
-  background: var(--bg-secondary, #1e1e1e);
-  border: 1px solid var(--border-color, #333);
-  padding: 16px;
-  border-radius: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  margin-top: auto;
-  cursor: pointer;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: 0.4s ease 0.4s;
-
-  .label { font-size: 0.7rem; color: var(--text-secondary, #aaaaaa); font-weight: 700; text-transform: uppercase; }
-  .status {
-    display: flex; align-items: center; gap: 10px;
-    color: var(--brand-gold, #ffd700); font-weight: 800; font-size: 0.9rem;
-  }
-}
-
-/* IGNITION BUTTON */
-.ignition-zone {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: 0.4s ease 0.5s;
-  padding-bottom: 20px;
-}
-
-.mobile-book-btn {
-  width: 100%;
-  height: 70px;
-  background: var(--brand-rose, #e91e63);
-  border: none;
-  border-radius: 50px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0 10px 20px rgba(233, 30, 99, 0.3);
-
-  .btn-inner {
-    display: flex; align-items: center; justify-content: center; gap: 12px;
-    color: #ffffff;
-    font-family: 'Rajdhani', sans-serif; font-weight: 900;
-    font-size: 1.1rem; letter-spacing: 1px;
-    position: relative;
-    z-index: 2;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0; left: -100%;
-    width: 100%; height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    animation: ignition-sweep 3s infinite;
-    z-index: 1;
-  }
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-@keyframes ignition-sweep {
-  to { left: 100%; }
 }
