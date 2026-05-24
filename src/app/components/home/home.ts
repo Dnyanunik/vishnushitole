@@ -16,8 +16,8 @@ export class HomeComponent implements OnInit {
   email = 'vishnushitole978@gmail.com';
 
   // --- MODAL TRACKING ENGINE ---
-  isMainModalOpen: boolean = false; 
-  activeCarIndex: number | null = null; 
+  isMainModalOpen: boolean = false;
+  activeCarIndex: number | null = null;
   selectedVehicle: string = '';
 
   // --- FORM FIELDS ---
@@ -29,9 +29,9 @@ export class HomeComponent implements OnInit {
   pickupTime: string = '';
 
   cars = [
-    { name: 'Maruti Suzuki Ertiga', desc: 'For Outstation / Local / Corporate / Airport Pick & Drop', image: 'image/eritiga.jpg' },
-    { name: 'Swift Dzire', desc: 'For Outstation / Local / Corporate / Airport Pick & Drop', image: 'image/swiftold.jpg' },
-    { name: 'Swift Dzire New Look', desc: 'For Outstation / Local / Corporate / Airport Pick & Drop', image: 'image/swiftnew.jpg' }
+    { name: 'Maruti Suzuki Ertiga', desc: 'For Outstation / Local / Corporate / Airport Pick & Drop', image: 'image/Ertiga_Car.jpeg' },
+    { name: 'Swift Dzire', desc: 'For Outstation / Local / Corporate / Airport Pick & Drop', image: 'image/swift.jpeg' },
+    { name: 'Swift Dzire New Look', desc: 'For Outstation / Local / Corporate / Airport Pick & Drop', image: 'image/desire.jpeg' }
   ];
 
   ngOnInit(): void {}
@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit {
   openCarModal(carName: string, index: number) {
     this.closeModals();
     this.selectedVehicle = carName;
-    this.activeCarIndex = index; 
+    this.activeCarIndex = index;
 
     setTimeout(() => {
       const modalElement = document.querySelector('.global-modal-blur');
@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
   closeModals() {
     this.isMainModalOpen = false;
     this.activeCarIndex = null;
-    
+
     this.guestName = '';
     this.guestPhone = '';
     this.fromCity = '';
